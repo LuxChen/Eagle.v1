@@ -1,0 +1,463 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<link href="{:RES}/css/global.css" rel="stylesheet" type="text/css" />
+<link href="{:RES}/css/style.css?{:time()}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{:RES}/js/jquery.1.7.2.min.js"></script>
+<link rel="stylesheet" href="{:RES}/js/larea/css/LArea.css">
+<script type="text/javascript" src="{:RES}/js/layer/layer.js"></script>
+<link href="{:RES}/js/mobiscroll/css/mobiscroll.custom-2.17.1.min.css" rel="stylesheet" type="text/css" />
+<script src="{:RES}/js/mobiscroll/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+<!--[if IE]>
+    <script src="js/html5shiv.min.js"></script>
+<![endif]-->
+<title>完善资料</title>
+<style>
+.bg{background:#fff !important;}
+</style>
+</head>
+
+<body>
+	<header>
+	<div>
+		<img class="logo" src="{:RES}/images/logo.png" />
+	</div>
+	</header>
+	<div class="center">
+	<form>
+		<div class="info" style="margin-bottom: 2.9rem;">
+			<ul>
+				
+				<li><span>应聘职位</span><input type="text"
+					placeholder="应聘职位" value="{$station.name}({$station.belongto})" readonly="readonly"  class="bg"/>
+					</li>	
+				<li><span>姓&emsp;&emsp;名</span><input type="text" placeholder="姓名" value="{$info.CName}" readonly="readonly"  class="bg"/></li>
+				<li><span>手机号码</span><input type="tel"  value="{$info.Telephone}" readonly="readonly"  class="bg"/></li>
+				<li><span>身份证号</span><input type="text" 
+					maxlength="18" placeholder="身份证号" value="{$info.CardId}"  class="bg"/></li>
+			</ul>
+			<ul>
+				<li>
+					<h1>基础信息</h1>
+				</li>
+				<li><span>民&emsp;&emsp;族</span>
+                    <select name="Nation">
+                    	{volist name=" \think\Config::get('NATION')" id="vo"}
+                    		<option value="{$vo}" {eq name="info.Nation" value="$vo"}selected="selected"{/eq}>{$vo}</option>
+                    	{/volist}
+                    	
+                     </select>
+                    </li>
+				<li><span>户籍性质<i class="i">&nbsp;</i></span> <select name="Domicile">
+						{volist name=" \think\Config::get('DOMOCILE')" id="vo"}
+							<option value="{$vo}" {eq name="info.Domicile" value="$vo"}selected="selected"{/eq} >{$vo}</option>
+						{/volist}
+				</select></li>
+				<li><span>政治面貌<i class="i">&nbsp;</i></span> <select name="Party">
+						{volist name=" \think\Config::get('PARTY')" id="vo"}
+							<option value="{$vo}" {eq name="info.Party" value="$vo"}selected="selected"{/eq} >{$vo}</option>
+						{/volist}
+				</select></li>
+                <li id="addpartytime" {eq name="info.Party" value="共产党员"}style="display:block;"{else}style="display:none;"{/eq} ><span>入党时间</span>
+                <input type="text" class="datelist" name="AddPartyTime" value="{$info.AddPartyTime}"
+					placeholder="入党时间" /></li>
+                <li><span>健康状况<i class="i">&nbsp;</i></span> <select name="IsHealthy">
+				  		{volist name=" \think\Config::get('ISHEAlTHY')" id="vo"}
+							<option value="{$vo}" {eq name="info.IsHealthy" value="$vo"}selected="selected"{/eq} >{$vo}</option>
+						{/volist}
+				</select></li>
+                <li><span>违法行为<i class="i">&nbsp;</i></span> <select name="IsIllegal">
+						{volist name=" \think\Config::get('ISILLEAGL')" id="vo"}
+							<option value="{$vo}" {eq name="info.IsIllegal" value="$vo"}selected="selected"{/eq} >{$vo}</option>
+						{/volist}
+				</select></li>
+				<li>
+					<div>户口地址<i class="i">*</i></div>
+					<ul class="area">
+						<li><input type="text" id="ResPcc" name="ResPcc" placeholder="省、市、县/区" value="{$info.ResPcc}" readonly="readonly"/>
+							<input type="hidden" id="ResPcc_val" name="ResPcc_val" value="{$info.ResPcc_val}"/>
+						</li>
+						<li><textarea placeholder="详细地址" name="ResAddress">{$info.ResAddress}</textarea></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="clear"></div>
+			<ul>
+            	<li>
+					<h1>紧急联络人</h1>
+				</li>
+                <li><span>姓&emsp;&emsp;名<i class="i">*</i></span><input type="text" placeholder="姓名" name="ContactName" value="{$info.ContactName}"/></li>
+                <li><span>关&emsp;&emsp;系<i class="i">*</i></span>
+                	<select name="ContactShip">
+                		{volist name=" \think\Config::get('FAMILYSHIP')" id="vo"}
+                		<option value="{$vo}" {eq name="info.ContactShip" value="$vo"}selected="selected"{/eq}>{$vo}</option>
+                		{/volist}
+                	</select>
+				</li>
+                <li><span>联系电话<i class="i">*</i></span><input type="tel" placeholder="联系电话" name="ContactTel" value="{$info.ContactTel}"/></li>
+            </ul>
+            <div class="clear"></div>
+			<ul>
+            	<li>
+					<h1>公司亲友</h1>
+				</li>
+				<li><span>公司亲友<i class="i">&nbsp;</i></span> <select name="IsFriend">
+						{volist name=" \think\Config::get('ISFRIEND')" id="vo"}
+							<option value="{$vo}" {eq name="info.IsFriend" value="$vo"}selected="selected"{/eq} >{$vo}</option>
+						{/volist}
+				</select></li>
+				<li class="flist" {eq name="info.IsFriend" value="有"}style="display:block"{else}style="display:none"{/eq}>
+				{empty name="info.FriendInfo"}
+				<ul class="friendlist">
+							<li style="border: 0">
+								<div>
+									<i class="no">No.1</i>
+									<button type="button" class="addship" id="addfriend">新增</button>
+									
+								</div>
+							</li>
+							<li><span>姓&emsp;&emsp;名<i class="i">*</i></span><input type="text" name="FName[]" value=""/></li>
+							<li><span>关&emsp;&emsp;系<i class="i">*</i></span><input type="text" name="FShip[]" value=""/></li>
+					</ul>
+				{else}
+				{$length=count($info['FriendInfo']);}
+					{volist name="info.FriendInfo" id="vo"}
+					<ul class="friendlist">
+						
+							<li style="border: 0">
+								<div>
+									<i class="no">No.{$i}</i>
+									{eq name="i" value="1"}
+									<button type="button" class="addship" id="addfriend" {eq name="length" value="2"}style="background:#ccc" disabled="disabled"{/eq}>新增</button>
+									{else}
+									<button class="delship" onclick="delfriend(this)">删除</button>
+									{/eq}
+									
+								</div>
+							</li>
+							<li><span>姓&emsp;&emsp;名<i class="i">*</i></span><input type="text" name="FName[]" value="{$vo.FName}"/></li>
+							<li><span>关&emsp;&emsp;系<i class="i">*</i></span><input type="text" name="FShip[]" value="{$vo.FShip}"/></li>
+						
+						
+					</ul>
+					</volist>
+				{/empty}
+					
+				</li>
+			</ul>
+			<div class="clear"></div>
+			<ul>
+				<li>
+					<h1>
+						能力及爱好
+					</h1>
+				</li>
+                <li><span>外&emsp;&emsp;语<i class="i">&nbsp;</i></span><input type="text" name="Language"
+					placeholder="语种"  value="{$info.Language}"/></li>
+                <li><span>外语能力<i class="i">&nbsp;</i></span> <select name="LangLevel">
+						<option value="">请选择</option>
+						{volist name=" \think\Config::get('LANGLEVEL')" id="vo"}
+							<option value="{$vo}" {eq name="info.LangLevel" value="$vo"}selected="selected"{/eq} >{$vo}</option>
+						{/volist}
+				</select></li>
+                 <li><span>招聘渠道<i class="i">&nbsp;</i></span> <select name="Source">
+						{volist name=" \think\Config::get('SOURCE')" id="vo"}
+							<option value="{$vo}" {eq name="info.Source" value="$vo"}selected="selected"{/eq} >{$vo}</option>
+						{/volist}
+				</select></li>
+				{if condition="$info.Source eq '推荐'"}
+					<li class="other">
+	                <input type="text" style="width:98.7%" name="SourceResult" value="{$info.SourceResult}" placeholder="推荐人"/>
+	                </li>
+	                
+	            {elseif condition="$info.Source eq '其他'"}
+	            	<li class="other">
+	                <input type="text" style="width:98.7%" name="SourceResult" value="{$info.SourceResult}" placeholder="其他"/>
+	                </li>
+	            {else}
+	            	<li class="other" style="display:none;">
+	                <input type="text" style="width:98.7%" name="SourceResult" value="{$info.SourceResult}"/>
+	                </li>
+				{/if}
+              
+                <li><span>专业证书<i class="i">&nbsp;</i></span><input type="text" name="Professional"
+					placeholder="专业证书" value="{$info.Professional}"/></li>
+                <li><span>可到岗时间<i class="i">*</i></span><input type="text" name="EntryTime" class="datelist"
+					placeholder="可到岗时间" value="{$info.EntryTime}"/></li>
+                <li>
+                <textarea placeholder="个性与爱好" name="Interest">{$info.Interest}</textarea>
+                </li>
+			</ul>
+		</div>
+		</form>
+		<div class="btn fixed">
+			<input type="button" value="返回" class="btns prev w45 h23 fs12" /> <input
+				type="button" id="save" value="保存" class="btns next w45 h23 fs12" />
+		</div>
+	</div>
+</body>
+<script src="{:RES}/js/iscroll-zoom.js"></script>
+<script src="{:RES}/js/hammer.js"></script>
+<script src="{:RES}/js/jquery.photoClip.js?4343"></script>
+<script src="{:RES}/js/larea/js/LAreaData2.js"></script>
+<script src="{:RES}/js/larea/js/LArea.js"></script>
+<script src="{:RES}/js/common.js?{:time()}"></script>
+<script>
+$('#save').click(function(){
+
+	var Domicile=$('select[name="Domicile"]').val();
+	if(Domicile==''){
+		_alert('请选择户籍性质');
+		return false;
+	}
+
+	var Party=$('select[name="Party"]').val();
+	if(Party==''){
+		_alert('请选择政治面貌');
+		return false;
+	}
+	if(Party=='共产党员'){
+		var AddPartyTime=$('input[name="AddPartyTime"]').val();
+		if(AddPartyTime==''){
+			_alert('请输入入党时间');
+			return false;
+		}
+	}
+	
+	var IsHealthy=$('select[name="IsHealthy"]').val();
+	if(IsHealthy==''){
+		_alert('请选择健康状况');
+		return false;
+	}
+	var IsIllegal=$('select[name="IsIllegal"]').val();
+	if(IsIllegal==''){
+		_alert('请选择是否有违法行为');
+		return false;
+	}
+	var ResPcc=$('input[name="ResPcc"]').val();
+	if(ResPcc==''){
+		_alert('请选择户口地址省、市、县/区');
+		return false;
+	}
+	var ResAddress=$('textarea[name="ResAddress"]').val();
+	if(ResAddress==''){
+		_alert('请输入户口地址详细地址');
+		return false;
+	}
+	var HeaderImg=$('input[name="HeaderImg"]').val();
+	if(HeaderImg==''){
+		_alert('请上传免冠照片');
+		return false;
+	}
+	var ContactName=$.trim($('input[name="ContactName"]').val());
+	if(ContactName==''){
+		_alert('请输入紧急联络人姓名');
+		return false;
+	}
+	var ContactShip=$('select[name="ContactShip"]').val();
+	if(ContactShip==''){
+		_alert('请选择紧急联络人关系');
+		return false;
+	}
+	/* var ContactTel=$.trim($('input[name="ContactTel"]').val());
+	if(checkmobile(ContactTel)==false){
+		_alert('请输入正确的紧急联络人电话');
+		return false;
+	} */
+	var IsFriend=$('select[name="IsFriend"]').val();
+	if(IsFriend==''){
+		_alert('请选择公司是否有亲友');
+		return false;
+	}
+	if(IsFriend=='有'){
+		var flag=0;
+		$('.friendlist').each(function(i){
+			var FName=$('input[name="FName[]"]:eq('+i+')').val();
+			if(FName==''){
+				flag=1;
+				return false;
+			}
+			var FShip=$('input[name="FShip[]"]').eq(i).val();
+			if(FShip==''){
+				flag=2;
+				return false;
+			}
+		})
+		if(flag==1){
+			_alert('请输入亲友姓名');
+			return false;
+		}
+		if(flag==2){
+			_alert('请输入亲友关系');
+			return false;
+		}
+	}
+	/* var Language=$.trim($('input[name="Language"]').val());
+	if(Language==''){
+		_alert('请输入所会语种');
+		return false;
+	}
+	var LangLevel=$('select[name="LangLevel"]').val();
+	if(LangLevel==''){
+		_alert('请选择语种能力');
+		return false;
+	} */
+	var Source=$('select[name="Source"]').val();
+	if(Source==''){
+		_alert('请选择招聘来源');
+		return false;
+	}
+	var SourceResult=$.trim($('input[name="SourceResult"]').val());
+	if(Source=='推荐'){
+		if(SourceResult==''){
+			_alert('请输入推荐人');
+			return false;
+		}
+	}
+	if(Source=='其他'){
+		if(SourceResult==''){
+			_alert('请输入其他来源');
+			return false;
+		}
+	}
+	/* var Professional=$.trim($('input[name="Professional"]').val());
+	if(Professional==''){
+		_alert('请输入专业证书');
+		return false;
+	} */
+	var EntryTime=$.trim($('input[name="EntryTime"]').val());
+	if(EntryTime==''){
+		_alert('请输入可到岗时间');
+		return false;
+	}
+	/* var Interest=$.trim($('textarea[name="Interest"]').val());
+	if(Interest==''){
+		_alert('请输入兴趣及爱好');
+		return false;
+	} */
+	btnStyle(0);
+	var data=$('form').serialize();
+	$.ajax({
+		type: "POST",
+		url: 'save',
+		data: data,
+		cache:false,
+		success: function(res){ 
+			_alert(res.info);
+			if(res.status==true){
+				setTimeout(function(){
+					window.location.href="myCenter";
+				},2000)
+			}else{
+				btnStyle(1);
+			}
+		},
+		error:function(){
+			alert("出错啦，刷新试试，如果一直出现，可以联系开发人员解决");
+		}
+	});
+})
+var Res_area= new LArea();
+Res_area.init({
+    'trigger': '#ResPcc',
+    'valueTo': '#ResPcc_val',
+    'keys': {
+        id: 'value',
+        name: 'text'
+    },
+    'type': 2,
+    'data': [provs_data, citys_data, dists_data]
+});
+{notempty name="info.ResPcc_val"}
+Res_area.value=[{$info.ResPcc_val}];
+{/notempty}
+$(function () {
+	$('.datelist').mobiscroll().date({
+		theme: '',      // Specify theme like: theme: 'ios' or omit setting to use default
+		lang: 'zh',    // Specify language like: lang: 'pl' or omit setting to use default
+		display: 'modal',  // Specify display mode like: display: 'bottom' or omit setting to use default
+		dateFormat: 'yyyy-mm-dd',
+		mode: 'scroller'        // More info about mode: http://docs.mobiscroll.com/2-17-1/datetime#!opt-mode
+	}); 
+});
+$('select[name="Party"]').change(function(){
+	var val=$(this).val();
+	$('#addpartytime').val('');
+	if(val=='共产党员'){
+		$('#addpartytime').show();
+	}else{
+		$('#addpartytime').hide();	
+	}
+})
+</script>
+
+<script>
+	$('#addfriend')
+			.click(
+					function() {
+						var i = $('.friendlist').length;
+						i++;
+						var content = '<ul class="friendlist">';
+						content += '<li style="border:0">';
+						content += '<div><i class="no">No.' + i + '</i>';
+						content += '<button class="delship" onclick="delfriend(this)">删除</button>';
+						content += '</div>';
+						content += '</li>';
+						content += '<li>';
+						content += '<span>姓&emsp;&emsp;名</span><input type="text" name="FName[]"/>';
+						content += '</li>';
+						content += '<li>';
+						content += '<span>关&emsp;&emsp;系</span><input type="text" name="FShip[]"/>';
+						content += '</li>';
+						content += '</ul>';
+						$('.info .friendlist').after(content);
+						if (i >= 2) {
+							$(this).attr('disabled', true);
+							$(this).css('background', '#ccc');
+						}
+					})
+
+	function delfriend(obj) {
+		$(obj).parents('.friendlist').remove();
+		var i = $('.friendlist').length;
+		if (i < 2) {
+			$('#addfriend').attr('disabled', false);
+			$('#addfriend').css('background', '#009e41');
+		}
+	}
+	
+	$('select[name="IsFriend"]').change(function() {
+		var val = $(this).val();
+		if (val == '有') {
+			$('.flist').show();
+		} else {
+			$('.flist').hide();
+		}
+	})
+	$('select[name="Source"]').change(function(){
+		var val=$(this).val();
+		if(val=='推荐'||val=='其他'){
+			//placeholder="详细地址"
+			val=val=='推荐'?'推荐人':val;
+			$('.other input[type="text"]').attr('placeholder',val)
+			$('.other').show();	
+		}else{
+			$('.other').hide();	
+		}
+	})
+	$(function () {
+	$('.EntryTime').mobiscroll().date({
+		theme: '',      // Specify theme like: theme: 'ios' or omit setting to use default
+		lang: 'zh',    // Specify language like: lang: 'pl' or omit setting to use default
+		display: 'modal',  // Specify display mode like: display: 'bottom' or omit setting to use default
+		dateFormat: 'yyyy-mm-dd',
+		endYear: 2099,
+		mode: 'scroller'        // More info about mode: http://docs.mobiscroll.com/2-17-1/datetime#!opt-mode
+	}); 
+});
+</script>
+</html>

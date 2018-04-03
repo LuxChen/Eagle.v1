@@ -1,0 +1,54 @@
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend>基本信息</legend>
+</fieldset>
+<form class="layui-form" action = "stationmodificationcomplete" method="post">
+  <div class="layui-inline">
+    <label class="layui-form-label">岗位名称</label>
+    <div class="layui-input-inline">
+      <input name="name" lay-verify="name" autocomplete="off" placeholder="请输入岗位名称" class="layui-input" type="text"value="{$station->name}">
+    </div>
+  </div>
+  <div class="layui-inline">
+    <label class="layui-form-label">类型</label>
+    <div class="layui-input-inline">
+      <input name="type" lay-verify="type" autocomplete="off" placeholder="请输入岗位类型" class="layui-input" type="text" value="{$station->belongto}">
+  </div>
+  </div>
+	<input type="text" name="id" hidden value="{$station->id}">
+	<div class="layui-btn-container" style="margin-left: 30%;margin-top:20px;">
+	           <input name="addcomplete" class="layui-btn" type="submit" value="提交完成" />
+	            &nbsp;&nbsp;
+	            <input type="button" onclick="$('.layui-layer-demo').hide();$('.layui-layer-shade').hide();" class="layui-btn" value="放弃" />
+	</div>
+  </form>
+  
+  <script>
+  //自定义验证规则
+var form = layui.form;
+  form.verify({
+    name: function(value){
+      if(value.length < 2){
+        return '岗位至少得2个字符';
+      }
+    },
+    type: function(value){
+      if(value.length < 2){
+        return '类型至少得2个字符';
+      }
+    }
+   
+  });
+  </script>
+  <style>
+.layui-form-label {
+	width: 100px;
+	margin-top: 20px;
+}
+
+.layui-input,.layui-textarea {
+	margin-top: 20px;
+}
+.layui-form-item{
+	margin-top:20px;
+}
+</style>

@@ -1,0 +1,91 @@
+ <style>
+table{font-size:14px;}
+</style>
+ <table class="layui-hide" id="standard" lay-filter="demo"></table>
+ 
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">简历预览</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">意向人员</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+layui.config({
+  version: '1520760931738' //为了更新 js 缓存，可忽略
+});
+ 
+layui.use(['layer', 'table'], function(){
+  var layer = layui.layer //弹层
+  ,table = layui.table //表格
+  
+  //执行一个 table 实例
+  table.render({
+    elem: '#standard'
+    ,height: 475
+    ,url: '{$dataurl}' //数据接口
+    ,page: true //开启分页
+    ,cols: [{$columns}]
+  });
+  
+  //监听工具条
+  table.on('tool(demo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+    var data = obj.data //获得当前行数据
+    ,layEvent = obj.event; //获得 lay-event 对应的值
+    id = data.Id;
+    if(layEvent === 'detail'){
+    	window.open('/index/index/resumeprint?telnumber='+data.Telephone);
+    } else if(layEvent === 'del'){
+		//询问框
+		layer.confirm('确认删除该岗位吗？', {
+		  btn: ['确定','取消'] //按钮
+		}, function(){
+            $.ajax({
+	               type: "POST",
+	               url: "/index/index/delapplicant",
+	               data:'id='+id,
+	               success:function(msg){
+	                   if(msg){
+	             		  layer.msg('操作成功', {
+	             			    time: 500, //20s后自动关闭
+	             			  });
+					       obj.del(); //删除对应行（tr）的DOM结构
+	                   }else{
+	                	  layer.msg('操作失败', {
+	             			   time: 500, //20s后自动关闭
+	             		  });
+	                   }
+	               }	   
+	           });
+		}, function(){
+		  layer.msg('操作已取消', {
+		    time: 500, //20s后自动关闭
+		  });
+		});
+    } else if(layEvent === 'edit'){
+		name = data.CName;
+		telnumber = data.Telephone;
+		//询问框
+		layer.confirm('确认添加 '+name+' 为意向人员吗？', {
+		  btn: ['确定','取消'] //按钮
+		}, function(){
+            $.ajax({
+	               type: "POST",
+	               url: "/index/index/addmembertopotential",
+	               data:'id='+id,
+	               success:function(msg){
+	                   if(msg=="ok"){
+	             		  layer.msg('操作成功', {
+	             			    time: 500, //20s后自动关闭
+	             			  });
+	             		  obj.del();
+	                   }else{
+	                   }
+	               }	   
+	           });
+		}, function(){
+		  layer.msg('操作已取消', {
+		    time: 500, //20s后自动关闭
+		  });
+		});
+    }
+  });});
+  </script>

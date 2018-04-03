@@ -1,0 +1,50 @@
+{include file="index/header"}
+<script type="text/javascript">
+    //<![CDATA[
+    $(document)
+            .ready(
+                    function () {
+               		 //// 新加 人员
+                		$("button[name='memberadd']").click(function(){
+                				$.ajax({
+                						type: "POST",
+                						url: '/index/index/potentialmembers_add',
+                						cache:false,
+                						data: '',
+                						success: function(msg){
+                                            //页面层
+                                            layer.open({
+                                                title: '新增意向人员',
+                                                type: 1,
+                                                skin: 'layui-layer-demo', //加上边框
+                                                area: ['375px', '440px'], //宽高
+                                                anim: 2,
+//												  shadeClose: true, //开启遮罩关闭
+                                                content: msg
+                                            });
+                							
+                						},
+                						error:function(){
+                							alert("出错啦，刷新试试，如果一直出现，可以联系开发人员解决");
+                						}
+                					});
+                			});
+                    }
+                    );
+ </script>
+<form action="" method="post">
+	<div class="funcdiv">
+		<button class="layui-btn funcbutton fright" name="memberadd" type="button"
+			value="">新增人员</button>
+		<button name="exportdata" type="submit" value="1"
+			class="layui-btn funcbutton fright">导出Excel</button>
+		<button name="searchBut" type="submit" class="searchTopbuttom fright"
+			value=""></button>
+		<input name="keyword" id="searchText" class="searchTopinput fright"
+			type="text" value="{$keyword}" placeholder="搜索姓名/手机号/岗位" />
+	</div>
+</form>
+<div class="pageTitleTop">当前位置：线上招聘 &raquo; 预入职人员列表</div>
+
+{include file="index/table_prejoinstafflist"} 
+{include file="index/footer"}

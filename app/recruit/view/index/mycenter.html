@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<title>我的</title>
+<link href="{:RES}/css/global.css" rel="stylesheet" type="text/css"/>
+<link href="{:RES}/css/style.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="{:RES}/js/svg/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="{:RES}/js/svg/css/default.css">
+<script type="text/javascript" src="{:RES}/js/layer/layer.js"></script>
+<style>
+.circle {
+	display: inline-block;
+	margin: .6em 1em;
+}
+
+.circles-integer {
+	font-size: .8em;
+}
+#center{
+	margin-top:calc(50% - 9rem - 2px);
+	margin-top:-webkit-calc(50% - 9rem - 2px);
+}
+.list_list a{ display:table;}
+.layui-m-layerbtn span[yes] {
+    color: #009e41;
+}
+
+</style>
+</head>
+
+<body>
+	<header>
+        <div class="logo1"><img class="logo" src="{:RES}/images/logo.png"/></div>
+	</header>
+    <div class="center" id="center">
+        <div class="list_list">
+            <ul>
+            	<li>
+                <a href="/recruit/index/baseinfo">
+                	<div class="circle" id="circles-1"></div>
+                	<span class="title">我的信息</span>
+                </a>
+                </li>
+                <li>
+                <a href="/recruit/index/familyinfo">
+                	<div class="circle" id="circles-2"></div>
+                	<span class="title">家庭情况</span>
+                </a>
+                </li>
+                <li>
+                <a href="/recruit/index/learninfo">
+                	<div class="circle" id="circles-3"></div>
+                	<span class="title">学习经历</span>
+                </a>
+                </li>
+                <li>
+                <a href="/recruit/index/jobinfo">
+                	<div class="circle" id="circles-4"></div>
+                	<span class="title">工作经历</span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="{:RES}/js/svg/js/circles.min.js"></script>
+<script type="text/javascript">
+var colors = ['#dddddd', '#009E41'], circles = [];
+var val=[{$percent_a},{$percent_b},{$percent_c},{$percent_d}];
+for (var i = 1; i <= 4; i++) {
+	var child = document.getElementById('circles-' + i),
+		percentage = val[i-1];
+
+	circles.push(Circles.create({
+		id:         child.id,
+		value:		percentage,
+		radius:     45,
+		width:      5,
+		colors:     colors
+	}));
+}
+{if condition="($Status eq 3)AND($Files eq null)"}
+layer.open({
+	content: '您的面试已通过，请按照offer内容上传相关资料',
+	btn: '前往',
+	shadeClose: false,
+	yes: function(){
+		window.location.href="/recruit/index/uploadfile";
+	}
+});
+{elseif condition="$Status eq 1" }
+layer.open({
+    content: '您的信息已提交，请等待HR进一步通知'
+    ,skin: 'footer'
+});
+{elseif condition="$Status eq 2" }
+{notempty name="ContactName"}
+layer.open({
+	content: '您的资料已完善，请等待HR进一步通知',
+	btn: '继续完善',
+	shadeClose: false,
+	yes: function(){
+		window.location.href="/recruit/index/finishInfo";
+	}
+});
+{else}
+layer.open({
+	content: '您的信息通过初步审核,请继续完善资料',
+	btn: '前往',
+	shadeClose: false,
+	yes: function(){
+		window.location.href="/recruit/index/finishInfo";
+	}
+});
+{/notempty}
+{elseif condition="($Status eq 3)AND($Files neq null)" }
+layer.open({
+    content: '您的资料已上传'
+    ,btn: '修改'
+    ,shadeClose: false
+    ,yes: function(index){
+    	window.location.href="/recruit/index/uploadfile";
+    }
+  });
+{/if}
+</script>
+</html>

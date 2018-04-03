@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<title>森马招聘</title>
+<link href="{:RES}/css/global.css?{:time()}" rel="stylesheet" type="text/css"/>
+<link href="{:RES}/css/style.css?{:time()}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{:RES}/js/jquery.1.7.2.min.js"></script>
+<script type="text/javascript" src="{:RES}/js/layer/layer.js"></script>
+<style>
+
+</style>
+</head>
+
+<body>
+	<header>
+        <div class="logo1"><img class="logo" src="{:RES}/images/logo.png"/></div>
+	</header>
+    <div class="center">
+    <form>
+    <div class="check">
+    	<ul>
+        	<li> 
+            	<input class="tel" type="tel" name="Phone" placeholder="请输入手机号码" maxlength="11"/>
+            </li>
+            <li>
+            	<input class="checkcode" type="tel" name="CheckCode" placeholder="验证码" maxlength="4"/>
+                <input id="sendcode" type="button" value="获取验证码" class="btns w28 h15 fs08" style="position: relative;top:-2px"/>
+            </li>
+        </ul>
+        <div class="sm">
+            <input class="checkicon" type="checkbox" value="1" id="che"/> 
+            <label for="che" class="che">	
+            </label>
+        	<a href="javascript:;" id="a_notice">请阅读应聘者申明</a>
+        
+        </div>
+        <div class="btn">
+       <input type="button" value="验证" class="btns next w90 h23 fs12" id="checked"/> 
+       <input type="hidden" name="from" value="{$_GET['from']}"/>
+       <input type="hidden" name="go" value="{$_GET['go']}"/>
+        </div>
+    </div>
+    </form>
+    </div>
+    <div class="mask">
+    </div>
+    <div class="notice">
+    <span class="closed">&#10006;</span>
+    	<div class="n_content">
+    	<h1>应聘者声明</h1>
+    	<p>1.本人保证以上内容由本人自愿填写，所填写信息和提供材料均真实有效，无任何虚假情况；</p>
+        <p>2.本人身体如有隐疾、怀孕或其他无法胜任工作的慢性病症，将在公司录用前如实告知；</p>
+        <p>3.本人允许公司对所填写信息和提供材料的真实性予以调查，如有虚假，本人愿意承担相应的法律责任及因此导致的一切后果，接受公司包含解除劳动合同在内的一切处罚。</p>
+    	</div>
+    </div>
+</body>
+<script type="text/javascript" src="{:RES}/js/common.js?{:time()}"></script>
+</html>

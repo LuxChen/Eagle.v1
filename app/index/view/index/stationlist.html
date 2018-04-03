@@ -1,0 +1,176 @@
+{include file="index/header"}
+<script type="text/javascript">
+    //<![CDATA[
+    $(document)
+            .ready(
+                    function () {
+
+                        $('button[name="editinfo"]')
+                                .bind(
+                                        "click",
+                                        function () {
+                                            $
+                                                    .ajax({
+                                                        type: "POST",
+                                                        url: "{%site_url('staff/staff/stationlistmodify')%}/"
+                                                                + $(this).val(),
+                                                        success: function (msg) {
+                                                            //alert(msg);
+                                                            if (msg == "0") {
+                                                                // $("tr#"+n).remove();
+                                                                jError(
+                                                                        "操作成功! 正在刷新页面...",
+                                                                        {
+                                                                            VerticalPosition: 'center',
+                                                                            HorizontalPosition: 'center',
+                                                                            TimeShown: 2000,
+                                                                        });
+
+                                                            } else {
+                                                                $("#showLayout")
+                                                                        .html(
+                                                                                msg);
+                                                                hiBox(
+                                                                        '#showLayout',
+                                                                        '编辑岗位',
+                                                                        '', '',
+                                                                        '',
+                                                                        '.a_close');
+                                                                $(
+                                                                        '#hiAlertform')
+                                                                        .bind(
+                                                                                "invalid-form.validate")
+                                                                        .validate(
+                                                                                addjs);
+                                                            }
+                                                        }
+                                                    });
+
+                                            return false;
+
+                                        });
+
+                        var addjs = {
+                            rules: {},
+                            messages: {
+                                surname: {
+                                    required: "用户姓名必填",
+                                    minlength: "最多20个字符"
+                                },
+                                telnumber: {
+                                    required: " 请输入Email地址",
+                                    minlength: "至少2个字符",
+                                    checkname: '此email已经存在'
+                                }
+                            },
+                            submitHandler: function () {
+                                //表单的处理
+                                var post_data = $("#hiAlertform")
+                                        .serializeArray();
+                                url = "{%site_url('staff/staff/stationlistmodifycomplete')%}";
+                                hiClose();
+                                $.ajax({
+                                    type: "POST",
+                                    url: url,
+                                    async: false,
+                                    data: post_data,
+                                    success: function (msg) {
+                                        if (msg == 1) {
+                                            jSuccess("操作成功! 正在刷新页面...", {
+                                                VerticalPosition: 'center',
+                                                HorizontalPosition: 'center',
+                                                TimeShown: 1000
+                                            });
+                                            window.location.reload();
+                                        } else {
+                                            jError("操作失败! ", {
+                                                VerticalPosition: 'center',
+                                                HorizontalPosition: 'center',
+                                                TimeShown: 1000
+                                            });
+                                        }
+                                    }
+                                });
+                                return false;//阻止表单提交
+                            }
+                        };
+
+                        $('button[name="del"]')
+                                .bind(
+                                        "click",
+                                        function () {
+                                            $this = $(this).val();
+                                            hiConfirm(
+                                                    '确认删除此岗位？',
+                                                    null,
+                                                    function (tp) {
+                                                        if (tp) {
+                                                            $
+                                                                    .ajax({
+                                                                        type: "POST",
+                                                                        url: "{%site_url('staff/staff/delstation')%}",
+                                                                        data: "id="
+                                                                                + $this,
+                                                                        success: function (
+                                                                                msg) {
+                                                                            if (msg == 1) {
+                                                                                jSuccess(
+                                                                                        "操作成功! 正在刷新页面...",
+                                                                                        {
+                                                                                            VerticalPosition: 'center',
+                                                                                            HorizontalPosition: 'center',
+                                                                                            TimeShown: 1000,
+                                                                                        });
+                                                                                setInterval(
+                                                                                        function () {
+                                                                                            window.location
+                                                                                                    .reload();
+                                                                                        },
+                                                                                        1000);
+                                                                            } else {
+                                                                                hiAlert(msg);
+                                                                            }
+                                                                        }
+
+                                                                    });
+                                                            return false;
+
+                                                        }
+                                                    });
+                                        });
+                        //// 新加岗位
+                        $("button[name='memberadd']")
+                                .click(
+                                        function () {
+                                            $
+                                                    .ajax({
+                                                        type: "POST",
+                                                        url: '/index/index/stationlist_add/',
+                                                        cache: false,
+                                                        data: '',
+                                                        success: function (msg) {
+                                                            //页面层
+                                                            layer.open({
+                                                                title: '新增岗位',
+                                                                type: 1,
+                                                                skin: 'layui-layer-demo', //加上边框
+                                                                area: ['375px', '320px'], //宽高
+                                                                anim: 2,
+// 															  shadeClose: true, //开启遮罩关闭
+                                                                content: msg
+                                                            });
+                                                        },
+                                                        error: function () {
+                                                            hiAlert("出错啦，刷新试试，如果一直出现，可以联系开发人员解决");
+                                                        }
+                                                    });
+
+                                        });
+                    });
+</script>
+<div class="funcdiv">
+    <button class="layui-btn funcbutton" name="memberadd"  value="">新增岗位</button>
+</div>
+<div class="pageTitleTop">当前位置：线上招聘 &raquo; 招聘岗位列表</div>
+{include file="index/table_stations"}
+{include file="index/footer"}

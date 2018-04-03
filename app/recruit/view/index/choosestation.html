@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<title>应聘职位</title>
+<link href="{:RES}/css/global.css" rel="stylesheet" type="text/css"/>
+<link href="{:RES}/css/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{:RES}/js/jquery.1.7.2.min.js"></script>
+<style>
+.brandlist p{width:100%;height:2.2rem; line-height:2.2rem; background:#f0f0f0; color:#009e41;font-size:1.4rem;border-bottom:1px solid #fff;}
+.brandlist p span{margin-left:1rem;}
+.brandlist i{
+	float:right; 
+	font-size:1rem;
+	margin-right:.7rem; 
+	display:block; 
+	width:.6rem;
+	height:.6rem;
+	border-top:1px solid #009e41;
+	border-right:1px solid #009e41;
+	transform:rotate(45deg);
+	-ms-transform:rotate(45deg); /* Internet Explorer */
+	-moz-transform:rotate(45deg); /* Firefox */
+	-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+	-o-transform:rotate(45deg); /* Opera */
+	margin-top:.7rem
+}
+.stationlist{list-style-type:disc !important; width:75%; margin-left:12.5%}
+.stationlist li{padding:.5rem 0 .5rem;list-style: disc;border-bottom:1px dashed #ccc;}
+.stationlist li:last-child{border-bottom:0;}
+.stationlist li a{width:100%;display:block}
+.transform{
+	margin-top:.6rem !important;
+	transform:rotate(135deg) !important;
+	-ms-transform:rotate(135deg) !important; /* Internet Explorer */
+	-moz-transform:rotate(135deg) !important; /* Firefox */
+	-webkit-transform:rotate(135deg) !important; /* Safari 和 Chrome */
+	-o-transform:rotate(135deg) !important; /* Opera */
+}
+</style>
+</head>
+<body>
+	<header>
+        <div><img class="logo" src="{:RES}/images/logo.png"/></div>
+	</header>
+	<div class="center" id="center" style="margin:1rem 0 2rem">
+		<ul>
+			{volist name="station" id="vo" key="k"}
+			<li class="brandlist">
+				<p><span>{$vo.belongto}</span> <i {eq name="k" value="1"} class="transform"{/eq}></i></p>
+				<ul class="stationlist" {neq name="k" value="1"}style="display:none"{/neq}>
+					{volist name="$vo.stations" id="v"}
+					<li><a href="/recruit/index/baseinfo?station={$v.id}">{$v.name}</a></li>
+					{/volist}
+				</ul>
+			</li>
+			{/volist}
+		</ul>
+	</div>
+</body>
+<script>
+$('.brandlist p').click(function(){
+	var display=$(this).parent().children().eq(1).css('display');
+	if(display=='none'){
+		$(this).parent().children().eq(1).fadeIn(700);
+		$(this).children().eq(1).addClass('transform');
+
+	}else{
+		$(this).parent().children().eq(1).fadeOut(700);
+		$(this).children().eq(1).removeClass('transform');
+	}
+})
+</script>
+</html>

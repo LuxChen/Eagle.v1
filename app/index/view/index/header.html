@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>{$title}</title>
+        <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css" media="all" />
+        <link rel="stylesheet" href="__PUBLIC__/font-awesome/css/font-awesome.min.css" media="all" />
+    </head>
+
+    <script src="__PUBLIC__/jquery/jquery.min.js"></script>
+    <script src="__PUBLIC__/layui/layui.js"></script>
+    <script>
+        layui.use(['layer', 'element'],function () {
+            var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+            //监听导航点击
+            element.on('a', function (elem) {
+                //console.log(elem)
+                layer.msg(elem.text());
+            });
+        });
+        function logout() {
+            layer.confirm('真的要退出?', {icon: 3, title: '提示', anim: 2}, function (index) {
+                $.ajax({
+                    url: "{:url('index/common/logout')}"
+                    , success: function (res) {
+                        layer.msg(res.msg, {offset: '250px', anim: 4});
+                        if (res.code == 1) {
+                            setTimeout(function () {
+                                location.href = res.url;
+                            }, 2000)
+                        }
+                    }
+                })
+            })
+        }
+    </script>
+    <body>
+
+        <ul class="layui-nav layui-bg-cyan">
+            {volist name="$menu" id="vo"}
+            <li class="layui-nav-item">
+                <a href=""> 
+                    <i class="{$vo['icon']}" aria-hidden="true"></i>
+                    {$vo['name']}
+                </a>
+                <dl class="layui-nav-child">
+                    {volist name="$vo['list']" id="vp"}
+                    <dd><a href="/{$vp['module']}/{$vp['controller']}/{$vp['function']}">
+                            <i class="{$vp['icon']}" aria-hidden="true"></i>
+                            {$vp['name']}
+                        </a>
+                    </dd>
+                    {/volist}
+                </dl>
+            </li>
+            {/volist}
+
+            <li class="layui-nav-item fright" lay-unselect="" ><a href="javascript:;"><img
+                        src="{$cookie.thumb|geturl}" class="layui-nav-img">我</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="/index/index/personal" target="_blank">修改信息</a>
+                    </dd>
+                    <dd>
+                        <a href="javascript:;">安全管理</a>
+                    </dd>
+                    <dd>
+                        <a href="javascript:logout();" id="logout">退了</a>
+                    </dd>
+                </dl></li>
+        </ul>
+
+    </ul>

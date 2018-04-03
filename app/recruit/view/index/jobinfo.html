@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<link href="{:RES}/css/global.css" rel="stylesheet" type="text/css"/>
+<link href="{:RES}/css/style.css?5555" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{:RES}/js/jquery.1.7.2.min.js"></script>
+<link href="{:RES}/js/mobiscroll/css/mobiscroll.custom-2.17.1.min.css" rel="stylesheet" type="text/css" />
+<script src="{:RES}/js/mobiscroll/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="{:RES}/js/layer/layer.js"></script>
+<title>工作经历</title>
+</head>
+
+<body>
+	<header>
+        <div class="logo1"><img class="logo" src="{:RES}/images/logo.png"/></div>
+    </header>
+    <div class="center">
+    <form>
+    	<div class="info" style="margin-bottom: 2.9rem;">
+        	<ul class="jobList">
+            	<li>
+                    <h1>工作经历</h1>
+                </li>
+                {empty name="info.WorkExp"}
+                <li class="list">
+                	<ul>
+                    	<li style="border:0">
+                        	<div><i class="no">No.1</i>
+                            <button type="button" class="addship">新增</button>
+                            </div>
+                        </li>
+                    	<li>
+                        	<span>入职时间</span><input name="EntryTime[]" type="text" class="datelist" placeholder="入职时间"/>
+                        </li>
+                        <li>
+                        	<span>离职时间</span><input name="QuitTime[]" type="text" class="datelist" placeholder="离职时间"/>
+                        </li>
+                        <li>
+                        	<span>工作单位</span><input name="Company[]" type="text" placeholder="工作单位"/>
+                        </li>
+                        <li>
+                        	<span>职&emsp;&emsp;位</span><input name="Position[]" type="text" placeholder="职位"/>
+                        </li>
+                        <li>
+                            <span>离职原因</span><input type="text" name="Reason[]" placeholder="离职原因" />
+                        </li>
+                        <li>
+                        	<span>证明人</span><input type="text" name="ContactUser[]" placeholder="证明人" />
+                        </li>
+                        <li>
+                        	<span>联系方式</span><input type="tel" name="ContactTel[]" placeholder="联系方式" />
+                        </li>
+                        <li>
+                        	<textarea placeholder="工作职责" name="Duty[]"></textarea>
+                        </li>
+                    </ul>
+                </li>
+                {else}
+                {volist name="info.WorkExp" id="vo" key="k"}
+                <li class="list">
+                	<ul>
+                    	<li style="border:0">
+                        	<div><i class="no">No.{$k}</i>
+                            {eq name="k" value="1"}
+									<button type="button" class="addship" id="addship" {eq name="length" value="3"}style="background:#ccc" disabled="disabled"{/eq}>新增</button>
+								{else}
+									<button type="button" class="delship" onclick="delwork(this);">删除</button>
+								{/eq}
+                            </div>
+                        </li>
+                    	<li>
+                        	<span>入职时间</span><input name="EntryTime[]" value="{$vo.EntryTime}" type="text" class="datelist" placeholder="入职时间"/>
+                        </li>
+                        <li>
+                        	<span>离职时间</span><input name="QuitTime[]" value="{$vo.QuitTime}" type="text" class="datelist" placeholder="离职时间"/>
+                        </li>
+                        <li>
+                        	<span>工作单位</span><input name="Company[]" value="{$vo.Company}" type="text" placeholder="工作单位"/>
+                        </li>
+                        <li>
+                        	<span>职&emsp;&emsp;位</span><input name="Position[]" value="{$vo.Position}" type="text" placeholder="职位"/>
+                        </li>
+                        <li>
+                            <span>离职原因</span><input type="text" name="Reason[]" value="{$vo.Reason}" placeholder="离职原因" />
+                        </li>
+                        <li>
+                        	<span>证明人</span><input type="text" name="ContactUser[]" value="{$vo.ContactUser}" placeholder="证明人" />
+                        </li>
+                        <li>
+                        	<span>联系方式</span><input type="tel" name="ContactTel[]" value="{$vo.ContactTel}" placeholder="联系方式" />
+                        </li>
+                        <li>
+                        	<textarea placeholder="工作职责" name="Duty[]">{$vo.Duty}</textarea>
+                        </li>
+                    </ul>
+                </li>
+                {/volist}
+               {/empty}
+            </ul>
+            
+            </ul>
+            <ul>
+            	<li>
+                	<span>现年薪</span><input type="tel" class="input_s" name="Income" value="{$info.E_Salary|default=0}" maxlength="8"/>(税前)
+                </li>
+                <li>
+                	<span>期望年薪</span><input type="tel" class="input_s" name="E_Salary" value="{$info.E_Salary|default=0}" maxlength="8"/>(税前)
+                </li>
+                <li>
+                	<div>与原公司是否签订竞业限制、保护商业机密之类的协议</div>
+                    <select style="width:100%" name="Agreement">
+                    	{volist name="\think\Config::get('AGREEMENT')" id="vo"}
+                        <option value="{$vo}" {eq name="info.Agreement" value="$vo"}selected="selected"{/eq}>{$vo}</option>
+                        {/volist}
+                    </select>
+                </li>
+            </ul>
+        </div>
+        </form>
+        <div class="btn fixed">
+            	<input type="button" value="返回" class="btns prev w45 h23 fs12" /> <input
+				type="button" id="save" value="保存" class="btns next w45 h23 fs12" /> 
+            </div>
+    </div>
+</body>
+<script src="{:RES}/js/common.js"></script>
+<script>
+$('#save').click(function(){
+	var flag=0;
+	var len=$('.list').length;
+	$('.list').each(function(i){
+		if(len>1){
+			var EntryTime=$('input[name="EntryTime[]"]:eq('+i+')').val();
+			if(EntryTime==''){
+				flag=1;
+				return false;
+			}
+			var QuitTime=$('input[name="QuitTime[]"]:eq('+i+')').val();
+			if(QuitTime==''){
+				flag=2;
+				return false;
+			}
+			var Company=$('input[name="Company[]"]:eq('+i+')').val();
+			if(Company==''){
+				flag=3;
+				return false;
+			}
+			var Position=$('input[name="Position[]"]:eq('+i+')').val();
+			if(Position==''){
+				flag=4;
+				return false;
+			}
+			var Reason=$('input[name="Reason[]"]:eq('+i+')').val();
+			if(Reason==''){
+				flag=5;
+				return false;
+			}
+			var ContactUser=$('input[name="ContactUser[]"]:eq('+i+')').val();
+			if(ContactUser==''){
+				flag=6;
+				return false;
+			}
+			var ContactTel=$('input[name="ContactTel[]"]:eq('+i+')').val();
+			if(ContactTel==''){
+				flag=7;
+				return false;
+			}
+			var Duty=$('textarea[name="Duty[]"]:eq('+i+')').val();
+			if(Duty==''){
+				flag=8;
+				return false;
+			}
+		}
+	})
+	if(flag==1){
+		_alert('请输入入职时间')
+		return false;
+	}
+	if(flag==2){
+		_alert('请输入离职年月')
+		return false;
+	}
+	if(flag==3){
+		_alert('请输入工作单位')
+		return false;
+	}
+	if(flag==4){
+		_alert('请输入职位')
+		return false;
+	}
+	if(flag==5){
+		_alert('请输入离职原因')
+		return false;
+	}
+	if(flag==6){
+		_alert('请输入证明人')
+		return false;
+	}
+	if(flag==7){
+		_alert('请输入证明人联系方式')
+		return false;
+	}
+	if(flag==8){
+		_alert('请输入工作职责')
+		return false;
+	}
+	if(len>1){
+		var Income=$('input[name="Income"]').val();
+		
+		if(Income==''){
+			_alert('请输入现年薪')
+			return false;
+		}
+	}
+	var E_Salary=$('input[name="E_Salary"]').val();
+	if(E_Salary==''){
+		_alert('请输入期望年薪')
+		return false;
+	}
+	var Agreement=$('select[name="Agreement"]').val();
+	if(Agreement==''){
+		_alert('请选择与原公司是否签订竞业限制、保护商业机密之类的协议')
+		return false;
+	}
+	btnStyle(0);
+	var url="save";
+	var data=$('form').serialize();
+	$.post(url,data,function(res){
+		_alert(res.info);
+		if(res.status==true){
+			setTimeout(function(){
+				window.location.href="myCenter";
+			},2000)
+		}else{
+			btnStyle(1);
+		}
+	})
+})
+$(function () {
+	$('.datelist').mobiscroll().date({
+		theme: '',      // Specify theme like: theme: 'ios' or omit setting to use default
+		lang: 'zh',    // Specify language like: lang: 'pl' or omit setting to use default
+		display: 'modal',  // Specify display mode like: display: 'bottom' or omit setting to use default
+		dateFormat: 'yyyy-mm-dd',
+		mode: 'scroller'        // More info about mode: http://docs.mobiscroll.com/2-17-1/datetime#!opt-mode
+	}); 
+});
+$('.addship').click(function(){
+	var i=$('.list').length; 
+		i=i+1;
+	var content='<li class="list">';
+        content+='<ul>';
+        content+='<li style="border:0">';
+        content+='<div><i class="no">No.'+i+'</i>';
+        content+='<button type="button" class="delship" onclick="delwork(this);">删除</button>';
+        content+='</div>';
+        content+='</li>';
+        content+='<li>';
+        content+='<span>入职时间</span><input name="EntryTime[]" type="text" class="datelist" placeholder="入职时间"/>';
+        content+='</li>';
+        content+='<li>';
+        content+='<span>离职时间</span><input name="QuitTime[]" type="text" class="datelist" placeholder="离职时间"/>';
+        content+='</li>';
+        content+='<li>';
+        content+='<span>工作单位</span><input name="Company[]" type="text" placeholder="工作单位"/>';
+        content+='</li>';
+        content+='<li>';
+        content+='<span>职&emsp;&emsp;位</span><input name="Position[]" type="text" placeholder="职位"/>';
+        content+='</li>';
+		content+='<li>';
+        content+='<span>离职原因</span><input type="text" name="Reason[]" placeholder="离职原因" />';
+        content+='</li>';
+        content+='<li>';
+        content+='<span>证明人</span><input type="text" name="ContactUser[]" placeholder="证明人" />';
+        content+='</li>';
+        content+='<li>';
+        content+='<span>联系方式</span><input type="tel" name="ContactTel[]" placeholder="联系方式" />';
+        content+='</li>';
+        content+='<li">';
+        content+='<textarea placeholder="工作职责" name="Duty[]"></textarea>';
+        content+='</li>'
+        content+='</ul>';
+        content+='</li>';
+	$('.info .jobList').append(content);
+	$(function () {
+		$('.datelist').mobiscroll().date({
+			theme: '',      // Specify theme like: theme: 'ios' or omit setting to use default
+			lang: 'zh',    // Specify language like: lang: 'pl' or omit setting to use default
+			display: 'modal',  // Specify display mode like: display: 'bottom' or omit setting to use default
+			dateFormat: 'yyyy-mm-dd',
+			mode: 'scroller'        // More info about mode: http://docs.mobiscroll.com/2-17-1/datetime#!opt-mode
+		}); 
+	});
+	if(i>=5){
+		$(this).attr('disabled',true);
+		$(this).css('background','#ccc');
+	}
+})
+function delwork(obj){
+	$(obj).parents('.list').remove();
+	var i=$('.list').length; 
+	if(i<5){
+		$('.addship').attr('disabled',false);
+		$('.addship').css('background','#48b536');
+	}
+	$('.no').each(function(i) {
+		i++;
+        $(this).html('No.'+i);
+    });		
+}
+</script>
+</html>

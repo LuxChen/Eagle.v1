@@ -1,0 +1,129 @@
+
+<style>
+table {
+	font-size: 14px;
+}
+</style>
+<table class="layui-hide" id="standard" lay-filter="demo"></table>
+
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">简历预览</a>
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="checkname">检查账号</a>
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="prejoin">入职</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+layui.config({
+  version: '1520760931738' //为了更新 js 缓存，可忽略
+});
+ 
+layui.use(['layer', 'table'], function(){
+  var layer = layui.layer //弹层
+  ,table = layui.table //表格
+  
+  //执行一个 table 实例
+  table.render({
+    elem: '#standard'
+    ,height: 475
+    ,url: '{$dataurl}' //数据接口
+    ,page: true //开启分页
+    ,cols: [{$columns}]
+  });
+  
+  //监听工具条
+  table.on('tool(demo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+    var data = obj.data //获得当前行数据
+    ,layEvent = obj.event; //获得 lay-event 对应的值
+    telnumber = data.telnumber;
+    id = data.id;
+    name = data.name;
+    if(layEvent === 'detail'){
+    	window.open('/index/index/resumeprint?telnumber='+telnumber);
+    }else  if(layEvent === 'checkname'){
+		logrequest =$.ajax({
+			url:"/index/index/logname?id="+id,
+			async:false
+		});
+		var logname = logrequest.responseText;
+        layer.open({
+            title: '登录名确认',
+            type: 1,
+            skin: 'layui-layer-demo', //加上边框
+//             area: ['375px', '240px'], //宽高
+            anim: 2,
+//			  shadeClose: true, //开启遮罩关闭
+            content: ' <hr class="layui-bg-gray"> <div class="layui-inline"> <label class="layui-form-label">可用登录名</label> <div class="layui-inline"><input name="logname" id="logname" autocomplete="off" placeholder="请输入登录名" class="layui-input" type="text" value="'+logname+'"> </div></div>'
+            ,btn: ['确认', '取消'] //只是为了演示
+            ,btnAlign: 'c' //按钮居中
+	        ,yes: function(val){
+	        	logname = $('#logname').val();
+				confirmrequest =$.ajax(
+						{
+							url:"/index/index/confirm_logname?id="+id+"&logname="+logname,
+							async:false
+						});
+				var con = confirmrequest.responseText;
+			    if(con==1){
+			    	alert('你选择的登录名“' +r+'”已被占用请修改！');
+			    }
+			    else {
+			    	alert('供该对象使用的登陆名是“' +logname+'“');
+			    	window.location.href='auditmemberlist';
+			    }
+	        }
+        });
+    }else  if(layEvent === 'prejoin'){
+		itname = data.itname;
+		if(itname=='' || itname==null){
+			layer.msg("请先检查账号！", {
+ 			    time: 500, //0.5s后自动关闭
+			  });
+		}else{
+			$.ajax({
+				type: "POST",
+				url: '/index/index/prejoin',
+				data:"id="+id,
+				cache:false,
+				success: function(msg){ 
+	                layer.open({
+	                    title: '员工入职',
+	                    type: 1,
+	                    skin: 'layui-layer-demo', //加上边框
+//	                     area: ['375px', '240px'], //宽高
+	                    anim: 2,
+//						  shadeClose: true, //开启遮罩关闭
+	                    content: msg
+	                });
+				},
+				error:function(){
+					alert("出错啦，刷新试试，如果一直出现，可以联系开发人员解决");
+				}
+			});
+		}
+    } else if(layEvent === 'del'){
+		//询问框
+		layer.confirm('确认删除 '+name+' 的记录吗？', {
+		  btn: ['确定','取消'] //按钮
+		}, function(){
+            $.ajax({
+	               type: "POST",
+	               url: "/index/index/delpotentialmember",
+	               data:'telnumber='+telnumber,
+	               success:function(msg){
+	                   if(msg){
+	             		  layer.msg('操作成功', {
+	             			    time: 500, //20s后自动关闭
+	             			  });
+		                   obj.del();
+	                   }else{
+	                   }
+	               }	   
+	           });
+		}, function(){
+		  layer.msg('操作已取消', {
+		    time: 500, //20s后自动关闭
+		  });
+		});
+    } 
+  });});
+  </script>

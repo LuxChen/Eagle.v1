@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<link href="{:RES}/css/global.css" rel="stylesheet" type="text/css"/>
+<link href="{:RES}/css/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{:RES}/js/jquery.1.7.2.min.js"></script>
+<script type="text/javascript" src="{:RES}/js/layer/layer.js"></script>
+<title>家庭情况</title>
+</head>
+
+<body>
+	<header>
+        <div class="logo1"><img class="logo" src="{:RES}/images/logo.png"/></div>
+    </header>
+    <div class="center">
+    <form>
+    	<div class="info">
+        	<ul class="shiplist">
+				<li>
+					<h1>
+						家庭情况<i>（若已婚，请提供配偶及子女信息）</i>
+					</h1>
+				</li>
+				{empty name="info"}
+				<li class="list">
+					<ul>
+						<li style="border: 0">
+							<div>
+								<i class="no_s">No.1</i>
+								<button type="button" class="addship" id="addship">新增</button>
+							</div>
+						</li>
+						<li><span>姓&emsp;&emsp;名<i class="i">*</i></span><input name="UName[]" type="text"
+							placeholder="姓名" /></li>
+						<li><span>关&emsp;&emsp;系<i class="i">*</i></span> <select name="UShip[]">
+							
+								{volist name="\think\Config::get('FAMILYSHIP')" id="vo"}
+		                		<option value="{$vo}">{$vo}</option>
+		                		{/volist}
+						</select></li>
+						<li><span>工作单位<i class="i">&nbsp;</i></span><input name="UCompany[]" type="text"
+							placeholder="工作单位" /></li>
+					</ul>
+				</li>
+				{else}
+				{volist name="info" id="vo" key="k"}
+				<li class="list">
+					<ul>
+						<li style="border: 0">
+							<div>
+								<i class="no_s">No.{$k}</i>
+								{eq name="k" value="1"}
+									<button type="button" class="addship" id="addship" {eq name="length" value="4"}style="background:#ccc" disabled="disabled"{/eq}>新增</button>
+								{else}
+									<button type="button" class="delship" onclick="delship(this)">删除</button>
+								{/eq}
+								
+							</div>
+						</li>
+						<li><span>姓&emsp;&emsp;名<i class="i">*</i></span><input name="UName[]" type="text"
+							placeholder="姓名" value="{$vo.UName}"/></li>
+						<li><span>关&emsp;&emsp;系<i class="i">*</i></span> <select name="UShip[]">
+								
+								{volist name="\think\Config::get('FAMILYSHIP')" id="v"}
+		                		<option value="{$v}" {eq name='v' value="$vo['UShip']"}selected{/eq}>{$v}</option>
+		                		{/volist}
+						</select></li>
+						<li><span>工作单位<i class="i">&nbsp;</i></span><input name="UCompany[]" type="text"
+							placeholder="工作单位" value="{$vo.UCompany}"/></li>
+					</ul>
+				</li>
+				{/volist}
+				{/empty}
+			</ul>
+            
+            
+        </div>
+        </form>
+        <div class="btn">
+            	<input type="button" value="返回" class="btns prev w45 h23 fs12"/> 
+           		<input type="button" id="save" value="保存" class="btns next w45 h23 fs12"/> 
+            </div>
+    </div>
+</body>
+<script src="{:RES}/js/common.js"></script>
+<script>
+$('#save').click(function(){
+	var flag=0;
+	$('.list').each(function(i){
+		var UName=$('input[name="UName[]"]:eq('+i+')').val();
+		if(UName==''){
+			flag=1;
+			return false;
+		}
+		var UShip=$('select[name="UShip[]"]:eq('+i+')').val();
+		if(UShip==''){
+			flag=2;
+			return false;
+		}
+		/* var UCompany=$('input[name="UCompany[]"]:eq('+i+')').val();
+		if(UCompany==''){
+			flag=3;
+			return false;
+		} */
+	})
+	if(flag==1){
+		_alert('请输入亲友姓名')
+		return false;
+	}
+	if(flag==2){
+		_alert('请选择亲友关系')
+		return false;
+	}
+	/* if(flag==3){
+		_alert('请输入亲友工作单位')
+		return false;
+	} */
+	btnStyle(0);
+	var url="save";
+	var data=$('form').serialize();
+	$.post(url,data,function(res){
+		_alert(res.info);
+		if(res.status==true){
+			setTimeout(function(){
+				window.location.href="myCenter";
+			},2000)
+		}else{
+			btnStyle(1);
+		}
+	})
+	
+})
+$('#addship')
+			.click(
+					function() {
+						var i = $('.list').length;
+						i = i + 1;
+						var content = '<li class="list">';
+						content += '<ul>';
+						content += '<li style="border:0">';
+						content += '<div><i class="no_s">No.' + i + '</i>';
+						content += '<button class="delship" onclick="delship(this)">删除</button>';
+						content += '</div>';
+						content += '</li>';
+						content += '<li>';
+						content += '<span>姓&emsp;&emsp;名<i class="i">*</i></span><input name="UName[]" type="text" placeholder="姓名"/>';
+						content += '</li>';
+						content += '<li>';
+						content += '<span>关&emsp;&emsp;系<i class="i">*</i></span><select name="UShip[]">';
+						
+						{volist name="\think\Config::get('FAMILYSHIP')" id="vo"}
+						content += '<option value="{$vo}">{$vo}</option>';
+                		{/volist}
+                		content += '</select>';
+						content += '</li>';
+						content += '<li>';
+						content += '<span>工作单位<i class="i">&nbsp;</i></span><input name="UCompany[]" type="text" placeholder="工作单位"/>';
+						content += '</li>';
+						content += '</ul>';
+						content += '</li>';
+						$('.info .shiplist').append(content);
+						if (i >= 4) {
+							$(this).attr('disabled', true);
+							$(this).css('background', '#ccc');
+						}
+					})
+	function delship(obj) {
+		$(obj).parents('.list').remove();
+		var i = $('.list').length;
+		if (i < 4) {
+			$('.addship').attr('disabled', false);
+			$('.addship').css('background', '#009e41');
+		}
+		$('.no_s').each(function(i) {
+			i++;
+			$(this).html('No.' + i);
+		});
+	}
+
+</script>
+</html>

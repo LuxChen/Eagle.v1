@@ -1,0 +1,15 @@
+<!-- 头部公共文件 -->
+{include file="index/header"}
+  <form action="" method="post">
+<div class="pageTitleTop">当前位置：线上招聘 &raquo; 应聘人员列表
+<div class="fright searchTop">
+			<button name="searchBut" type="submit" class="searchTopbuttom fright"
+				value=""></button>
+			<input name="keyword" id="searchText" class="searchTopinput fright"
+				type="text" value="{$keyword}" placeholder="搜索姓名/手机号" />
+		</div>
+</div>
+  </form>
+<div id="showLayout" style="display:none;"></div>
+{include file="index/table_applicantlist"}
+ {include file="index/footer"}

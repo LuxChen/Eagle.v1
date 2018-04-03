@@ -1,0 +1,93 @@
+<script type="text/javascript">
+function confirminfo(id){
+	datingtime = $("#datingtime").val();
+	datingplace = $("#datingplace").val();
+	contactname = $("#contactname").val();
+	contactphone = $("#contactphone").val();
+	employeename = $("#employeename").val();
+	employeephone = $("#employeephone").val();
+	$.ajax({
+			type: "POST",
+			url: "index/index/sendnotification",
+			data: "id="+id+"&datingtime="+datingtime+"&datingplace="+datingplace+"&contactname="+contactname+"&contactphone="+contactphone+"&employeename="+employeename+"&employeephone="+employeephone,
+			success: function(msg){
+// 				alert(msg);
+				if(msg==1){
+			    	hiOverAlert('通知"'+employeename+'"面试成功，面试时间为：' +datingtime);
+			    	closed();
+				}else{
+					hiAlert(msg);
+				}
+			}
+	});
+}
+</script>
+<fieldset class="layui-elem-field layui-field-title"
+	style="margin-top: 20px;">
+	<legend>面试通知信息确认</legend>
+</fieldset>
+<form class="layui-form" method="post" id="prejoinform">
+	<div class="layui-inline">
+		<label class="layui-form-label">面试时间</label>
+		<div class="layui-inline">
+			<input type="text" name="datingtime" id="datingtime" lay-verify=""
+				autocomplete="off" placeholder="请输入面试时间" autocomplete="off"
+				class="layui-input" value="{$datingtime}">
+		</div>
+	</div>
+	<div class="layui-inline">
+		<label class="layui-form-label">面试地点</label>
+		<div class="layui-inline">
+			<textarea name="datingplace" id="datingplace" placeholder="请输入面试地点"
+				class="layui-textarea">{$address}</textarea>
+		</div>
+	</div>
+	<div class="layui-inline">
+		<label class="layui-form-label">联系人姓名</label>
+		<div class="layui-input-inline">
+			<input type="text" name="contactname" id="contactname"
+				placeholder="请输入联系人姓名" autocomplete="off" class="layui-input"
+				value="{$contactname}">
+		</div>
+	</div>
+	<div class="layui-inline">
+		<label class="layui-form-label">联系人电话</label>
+		<div class="layui-input-inline">
+			<input type="text" name="contactphone" id="contactphone"
+				placeholder="请输入联系人电话" autocomplete="off" class="layui-input"
+				value="{$contactphone}">
+		</div>
+	</div>
+	<div class="layui-inline">
+		<label class="layui-form-label">面试对象姓名</label>
+		<div class="layui-input-inline">
+			<input type="text" name="employeename" id="employeename"
+				placeholder="请输入面试对象姓名" autocomplete="off" class="layui-input"
+				value="{$employeename}">
+		</div>
+	</div>
+	<div class="layui-inline">
+		<label class="layui-form-label">面试对象手机号</label>
+		<div class="layui-input-inline">
+			<input type="text" name="employeephone" id="employeephone"
+				placeholder="请输入联系人电话" autocomplete="off" class="layui-input"
+				value="{$employeephone}">
+		</div>
+	</div>
+
+</form>
+<div class="layui-btn-container" style="margin-left: 30%;margin-top:20px;">
+	<button class="layui-btn" onclick="confirminfo({$pid});">确定</button>
+	<button class="layui-btn" onclick="$('.layui-layer-demo').hide();$('.layui-layer-shade').hide();"
+		style="margin-left: 18px;">取消</button>
+</div>
+<style>
+.layui-form-label {
+	width: 100px;
+	margin-top: 20px;
+}
+
+.layui-input,.layui-textarea {
+	margin-top: 20px;
+}
+</style>
