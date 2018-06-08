@@ -205,7 +205,7 @@ function export_toexcel($titles, $fields, $datas = array()) {
 // 	require_once __DIR__ . '/../vendor/autoload.php';
 	$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet ();
 	
-	$col = 0;
+	$col = 1;
 	foreach ( $titles as $title ) {
 		$sheet = $spreadsheet->getActiveSheet ();
 		$sheet->setCellValueByColumnAndRow ( $col, 1, $title );
@@ -214,25 +214,11 @@ function export_toexcel($titles, $fields, $datas = array()) {
 	$row = 2;
 	if ($datas) {
 		foreach ( $datas as $data ) {
-			$col = 0;
+			$col = 1;
 			// print_r($data);
 			foreach ( $fields as $field ) {
 				$sheet = $spreadsheet->getActiveSheet ();
-				$sheet->setCellValueByColumnAndRow ( $col, $row, $data->$field );
-				$col ++;
-			}
-			
-			$row ++;
-		}
-	}
-	$row = 2;
-	if ($datas) {
-		foreach ( $datas as $data ) {
-			$col = 0;
-			// print_r($data);
-			foreach ( $fields as $field ) {
-				$sheet = $spreadsheet->getActiveSheet ();
-				$sheet->setCellValueByColumnAndRow ( $col, $row, $data->$field );
+				$sheet->setCellValueByColumnAndRow ( $col, $row, $data[$field] );
 				$col ++;
 			}
 			

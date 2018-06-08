@@ -21,7 +21,7 @@ class Index extends Permissions
 {
     public function index()
     {
-        $menu = Db::name('admin_menu')->where(['is_display'=>1])->order('orders asc')->select();
+        $menu = Db::name('admin_menu')->where([])->order('orders asc')->select();
 
         //删除不在当前角色权限里的菜单，实现隐藏
         $admin_cate = Session::get('admin_cate_id');
@@ -29,7 +29,7 @@ class Index extends Permissions
         $permissions = explode(',',$permissions);
 
         foreach ($menu as $k => $val) {
-        	if($val['type'] == 1 and $val['is_display'] == 1 and !in_array($val['id'],$permissions)) {
+        	if( !in_array($val['id'],$permissions)) {
         		unset($menu[$k]);
         	}
         }

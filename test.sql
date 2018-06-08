@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2018-03-30 17:45:54
+Date: 2018-06-08 10:51:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,18 +30,20 @@ CREATE TABLE `eagle_admin` (
   `login_time` int(11) DEFAULT NULL COMMENT '最后登录时间',
   `login_ip` varchar(100) DEFAULT NULL COMMENT '最后登录ip',
   `admin_cate_id` int(2) NOT NULL DEFAULT '1' COMMENT '管理员分组',
+  `location` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`) USING BTREE,
   KEY `admin_cate_id` (`admin_cate_id`) USING BTREE,
   KEY `nickname` (`nickname`) USING BTREE,
   KEY `create_time` (`create_time`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of eagle_admin
 -- ----------------------------
-INSERT INTO `eagle_admin` VALUES ('1', 'Eagle123123', 'admin', '22cdd09fd9c474b270d8daf7f7ea86dc', '3', '1510885948', '1522288463', '1522399802', '0.0.0.0', '1');
-INSERT INTO `eagle_admin` VALUES ('16', '123', 'test', '5a7055f7a337bfd84b2c82a4363a3d52', '4', '1522291089', '1522291089', '1522402990', '0.0.0.0', '20');
+INSERT INTO `eagle_admin` VALUES ('1', 'Eagle123123', 'admin', '22cdd09fd9c474b270d8daf7f7ea86dc', '3', '1510885948', '1522288463', '1528186740', '0.0.0.0', '1', '上海');
+INSERT INTO `eagle_admin` VALUES ('16', '123', 'test', '5a7055f7a337bfd84b2c82a4363a3d52', '4', '1522291089', '1522291089', '1528186359', '0.0.0.0', '20', null);
+INSERT INTO `eagle_admin` VALUES ('17', 'normaluser', 'normal', '22cdd09fd9c474b270d8daf7f7ea86dc', '1', '1528075243', '1528075243', '1528075360', '0.0.0.0', '20', '上海');
 
 -- ----------------------------
 -- Table structure for eagle_admin_cate
@@ -63,8 +65,8 @@ CREATE TABLE `eagle_admin_cate` (
 -- ----------------------------
 -- Records of eagle_admin_cate
 -- ----------------------------
-INSERT INTO `eagle_admin_cate` VALUES ('1', '超级管理员', '4,5,6,7,8,11,13,14,16,17,19,20,21,25,26,28,29,34,35,37,38,39,40,42,43,44,45,47,48,52,53,54,55,56,57,58,59', '0', '1520823093', '超级管理员，拥有最高权限！');
-INSERT INTO `eagle_admin_cate` VALUES ('20', '普通管理员', '54,55,56,57,58,59,60,62', '1522291033', '1522292346', '');
+INSERT INTO `eagle_admin_cate` VALUES ('1', '超级管理员', '1,2,3,51,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,63,64,65,66,67,68,54,55,56,57,58,59,60,62,61,69,70,71', '0', '1528272739', '超级管理员，拥有最高权限！');
+INSERT INTO `eagle_admin_cate` VALUES ('20', '普通管理员', '63,64,65,66,60,62', '1522291033', '1528186324', '');
 
 -- ----------------------------
 -- Table structure for eagle_admin_log
@@ -81,7 +83,7 @@ CREATE TABLE `eagle_admin_log` (
   KEY `id` (`id`) USING BTREE,
   KEY `admin_id` (`admin_id`) USING BTREE,
   KEY `create_time` (`create_time`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of eagle_admin_log
@@ -138,6 +140,54 @@ INSERT INTO `eagle_admin_log` VALUES ('49', '4', '1', '0.0.0.0', '60', '15222922
 INSERT INTO `eagle_admin_log` VALUES ('50', '4', '1', '0.0.0.0', '62', '1522292335');
 INSERT INTO `eagle_admin_log` VALUES ('51', '28', '1', '0.0.0.0', '20', '1522292346');
 INSERT INTO `eagle_admin_log` VALUES ('52', '4', '1', '0.0.0.0', '54', '1522292925');
+INSERT INTO `eagle_admin_log` VALUES ('53', '28', '1', '0.0.0.0', '1', '1527661268');
+INSERT INTO `eagle_admin_log` VALUES ('54', '4', '1', '0.0.0.0', '63', '1527662841');
+INSERT INTO `eagle_admin_log` VALUES ('55', '4', '1', '0.0.0.0', '64', '1527668972');
+INSERT INTO `eagle_admin_log` VALUES ('56', '28', '1', '0.0.0.0', '1', '1527668999');
+INSERT INTO `eagle_admin_log` VALUES ('57', '4', '1', '0.0.0.0', '64', '1527669043');
+INSERT INTO `eagle_admin_log` VALUES ('58', '4', '1', '0.0.0.0', '63', '1527669614');
+INSERT INTO `eagle_admin_log` VALUES ('59', '4', '1', '0.0.0.0', '64', '1527670522');
+INSERT INTO `eagle_admin_log` VALUES ('60', '28', '1', '0.0.0.0', '1', '1527730439');
+INSERT INTO `eagle_admin_log` VALUES ('61', '25', '1', '0.0.0.0', '17', '1528075243');
+INSERT INTO `eagle_admin_log` VALUES ('62', '50', '17', '0.0.0.0', '', '1528075335');
+INSERT INTO `eagle_admin_log` VALUES ('63', '28', '1', '0.0.0.0', '20', '1528075510');
+INSERT INTO `eagle_admin_log` VALUES ('64', '4', '1', '0.0.0.0', '65', '1528160971');
+INSERT INTO `eagle_admin_log` VALUES ('65', '28', '1', '0.0.0.0', '1', '1528161001');
+INSERT INTO `eagle_admin_log` VALUES ('66', '4', '1', '0.0.0.0', '66', '1528163681');
+INSERT INTO `eagle_admin_log` VALUES ('67', '28', '1', '0.0.0.0', '1', '1528163705');
+INSERT INTO `eagle_admin_log` VALUES ('68', '4', '1', '0.0.0.0', '1', '1528183288');
+INSERT INTO `eagle_admin_log` VALUES ('69', '4', '1', '0.0.0.0', '2', '1528183316');
+INSERT INTO `eagle_admin_log` VALUES ('70', '28', '1', '0.0.0.0', '1', '1528183375');
+INSERT INTO `eagle_admin_log` VALUES ('71', '4', '1', '0.0.0.0', '3', '1528183405');
+INSERT INTO `eagle_admin_log` VALUES ('72', '28', '1', '0.0.0.0', '1', '1528183443');
+INSERT INTO `eagle_admin_log` VALUES ('73', '50', '1', '0.0.0.0', '', '1528183551');
+INSERT INTO `eagle_admin_log` VALUES ('74', '4', '1', '0.0.0.0', '9', '1528183609');
+INSERT INTO `eagle_admin_log` VALUES ('75', '4', '1', '0.0.0.0', '15', '1528183630');
+INSERT INTO `eagle_admin_log` VALUES ('76', '4', '1', '0.0.0.0', '27', '1528183642');
+INSERT INTO `eagle_admin_log` VALUES ('77', '4', '1', '0.0.0.0', '41', '1528183670');
+INSERT INTO `eagle_admin_log` VALUES ('78', '4', '1', '0.0.0.0', '12', '1528183679');
+INSERT INTO `eagle_admin_log` VALUES ('79', '50', '1', '0.0.0.0', '', '1528184034');
+INSERT INTO `eagle_admin_log` VALUES ('80', '4', '1', '0.0.0.0', '27', '1528184317');
+INSERT INTO `eagle_admin_log` VALUES ('81', '28', '1', '0.0.0.0', '1', '1528185046');
+INSERT INTO `eagle_admin_log` VALUES ('82', '50', '1', '0.0.0.0', '', '1528185743');
+INSERT INTO `eagle_admin_log` VALUES ('83', '4', '1', '0.0.0.0', '1', '1528186105');
+INSERT INTO `eagle_admin_log` VALUES ('84', '4', '1', '0.0.0.0', '1', '1528186145');
+INSERT INTO `eagle_admin_log` VALUES ('85', '28', '1', '0.0.0.0', '20', '1528186324');
+INSERT INTO `eagle_admin_log` VALUES ('86', '50', '1', '0.0.0.0', '', '1528186740');
+INSERT INTO `eagle_admin_log` VALUES ('87', '4', '1', '0.0.0.0', '67', '1528247875');
+INSERT INTO `eagle_admin_log` VALUES ('88', '28', '1', '0.0.0.0', '1', '1528249048');
+INSERT INTO `eagle_admin_log` VALUES ('89', '4', '1', '0.0.0.0', '68', '1528267918');
+INSERT INTO `eagle_admin_log` VALUES ('90', '28', '1', '0.0.0.0', '1', '1528267955');
+INSERT INTO `eagle_admin_log` VALUES ('91', '4', '1', '0.0.0.0', '69', '1528272444');
+INSERT INTO `eagle_admin_log` VALUES ('92', '4', '1', '0.0.0.0', '70', '1528272632');
+INSERT INTO `eagle_admin_log` VALUES ('93', '4', '1', '0.0.0.0', '71', '1528272725');
+INSERT INTO `eagle_admin_log` VALUES ('94', '28', '1', '0.0.0.0', '1', '1528272739');
+INSERT INTO `eagle_admin_log` VALUES ('95', '4', '1', '0.0.0.0', '70', '1528337217');
+INSERT INTO `eagle_admin_log` VALUES ('96', '4', '1', '0.0.0.0', '71', '1528337256');
+INSERT INTO `eagle_admin_log` VALUES ('97', '4', '1', '0.0.0.0', '70', '1528337275');
+INSERT INTO `eagle_admin_log` VALUES ('98', '4', '1', '0.0.0.0', '70', '1528337375');
+INSERT INTO `eagle_admin_log` VALUES ('99', '4', '1', '0.0.0.0', '71', '1528337394');
+INSERT INTO `eagle_admin_log` VALUES ('100', '4', '1', '0.0.0.0', '71', '1528337978');
 
 -- ----------------------------
 -- Table structure for eagle_admin_menu
@@ -166,71 +216,80 @@ CREATE TABLE `eagle_admin_menu` (
   KEY `function` (`function`) USING BTREE,
   KEY `is_display` (`is_display`) USING BTREE,
   KEY `type` (`type`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of eagle_admin_menu
 -- ----------------------------
-INSERT INTO `eagle_admin_menu` VALUES ('1', '系统', '', '', '', '', '系统设置。', '1', '2', '0', '0', '1517015748', 'fa-cog', '1', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('2', '菜单', '', '', '', '', '菜单管理。', '1', '2', '1', '0', '1517015764', 'fa-paw', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('1', '系统', '', '', '', '', '系统设置。', '2', '1', '0', '0', '1528186145', 'fa fa-cog', '1', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('2', '菜单', '', '', '', '', '菜单管理。', '1', '1', '1', '0', '1528183316', 'fa fa-paw', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('51', '系统菜单排序', 'admin', 'menu', 'orders', '', '系统菜单排序。', '2', '1', '3', '1517562047', '1517562047', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('3', '系统菜单', 'admin', 'menu', 'index', null, '系统菜单管理', '1', '2', '2', '0', '0', 'fa-share-alt', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('3', '系统菜单', 'admin', 'menu', 'index', '', '系统菜单管理', '1', '1', '2', '0', '1528183405', 'fa fa-share-alt', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('4', '新增/修改系统菜单', 'admin', 'menu', 'publish', '', '新增/修改系统菜单.', '2', '1', '3', '1516948769', '1516948769', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('5', '删除系统菜单', 'admin', 'menu', 'delete', '', '删除系统菜单。', '2', '1', '3', '1516948857', '1516948857', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('6', '个人', '', '', '', '', '个人信息管理。', '1', '1', '1', '1516949308', '1517021986', 'fa-user', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('7', '个人信息', 'admin', 'admin', 'personal', '', '个人信息修改。', '1', '1', '6', '1516949435', '1516949435', 'fa-user', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('8', '修改密码', 'admin', 'admin', 'editpassword', '', '管理员修改个人密码。', '1', '1', '6', '1516949702', '1517619887', 'fa-unlock-alt', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('9', '设置', '', '', '', '', '系统相关设置。', '1', '2', '1', '1516949853', '1517015878', 'fa-cog', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('10', '网站设置', 'admin', 'webconfig', 'index', '', '网站相关设置首页。', '1', '2', '9', '1516949994', '1516949994', 'fa-bullseye', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('6', '个人', '', '', '', '', '个人信息管理。', '1', '1', '1', '1516949308', '1517021986', 'fa fa-user', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('7', '个人信息', 'admin', 'admin', 'personal', '', '个人信息修改。', '1', '1', '6', '1516949435', '1516949435', 'fa fa-user', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('8', '修改密码', 'admin', 'admin', 'editpassword', '', '管理员修改个人密码。', '1', '1', '6', '1516949702', '1517619887', 'fa fa-unlock-alt', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('9', '设置', '', '', '', '', '系统相关设置。', '1', '1', '1', '1516949853', '1528183609', 'fa fa-cog', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('10', '网站设置', 'admin', 'webconfig', 'index', '', '网站相关设置首页。', '1', '1', '9', '1516949994', '1516949994', 'fa fa-bullseye', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('11', '修改网站设置', 'admin', 'webconfig', 'publish', '', '修改网站设置。', '2', '1', '10', '1516950047', '1516950047', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('12', '邮件设置', 'admin', 'emailconfig', 'index', '', '邮件配置首页。', '1', '2', '9', '1516950129', '1516950129', 'fa-envelope', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('12', '邮件设置', 'admin', 'emailconfig', 'index', '', '邮件配置首页。', '1', '1', '9', '1516950129', '1528183679', 'fa fa-envelope', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('13', '修改邮件设置', 'admin', 'emailconfig', 'publish', '', '修改邮件设置。', '2', '1', '12', '1516950215', '1516950215', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('14', '发送测试邮件', 'admin', 'emailconfig', 'mailto', '', '发送测试邮件。', '2', '1', '12', '1516950295', '1516950295', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('15', '短信设置', 'admin', 'smsconfig', 'index', '', '短信设置首页。', '1', '2', '9', '1516950394', '1516950394', 'fa-comments', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('15', '短信设置', 'admin', 'smsconfig', 'index', '', '短信设置首页。', '1', '1', '9', '1516950394', '1528183630', 'fa fa-comments', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('16', '修改短信设置', 'admin', 'smsconfig', 'publish', '', '修改短信设置。', '2', '1', '15', '1516950447', '1516950447', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('17', '发送测试短信', 'admin', 'smsconfig', 'smsto', '', '发送测试短信。', '2', '1', '15', '1516950483', '1516950483', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('18', 'URL 设置', 'admin', 'urlsconfig', 'index', '', 'url 设置。', '1', '2', '9', '1516950738', '1516950804', 'fa-code-fork', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('18', 'URL 设置', 'admin', 'urlsconfig', 'index', '', 'url 设置。', '1', '1', '9', '1516950738', '1516950804', 'fa fa-code-fork', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('19', '新增/修改url设置', 'admin', 'urlsconfig', 'publish', '', '新增/修改url设置。', '2', '1', '18', '1516950850', '1516950850', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('20', '启用/禁用url美化', 'admin', 'urlsconfig', 'status', '', '启用/禁用url美化。', '2', '1', '18', '1516950909', '1516950909', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('21', ' 删除url美化规则', 'admin', 'urlsconfig', 'delete', '', ' 删除url美化规则。', '2', '1', '18', '1516950941', '1516950941', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('22', '会员', '', '', '', '', '会员管理。', '1', '2', '0', '1516950991', '1517015810', 'fa-users', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('23', '管理员', '', '', '', '', '系统管理员管理。', '1', '2', '22', '1516951071', '1517015819', 'fa-user', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('24', '管理员', 'admin', 'admin', 'index', '', '系统管理员列表。', '1', '2', '23', '1516951163', '1516951163', 'fa-user', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('25', '新增/修改管理员', 'admin', 'admin', 'publish', '', '新增/修改系统管理员。', '2', '1', '24', '1516951224', '1516951224', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('26', '删除管理员', 'admin', 'admin', 'delete', '', '删除管理员。', '2', '1', '24', '1516951253', '1516951253', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('27', '权限组', 'admin', 'admin', 'admincate', '', '权限分组。', '1', '2', '23', '1516951353', '1517018168', 'fa-dot-circle-o', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('28', '新增/修改权限组', 'admin', 'admin', 'admincatepublish', '', '新增/修改权限组。', '2', '1', '27', '1516951483', '1516951483', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('29', '删除权限组', 'admin', 'admin', 'admincatedelete', '', '删除权限组。', '2', '1', '27', '1516951515', '1516951515', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('30', '操作日志', 'admin', 'admin', 'log', '', '系统管理员操作日志。', '1', '2', '23', '1516951754', '1517018196', 'fa-pencil', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('31', '内容', '', '', '', '', '内容管理。', '1', '2', '0', '1516952262', '1517015835', 'fa-th-large', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('32', '文章', '', '', '', '', '文章相关管理。', '1', '2', '31', '1516952698', '1517015846', 'fa-bookmark', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('33', '分类', 'admin', 'articlecate', 'index', '', '文章分类管理。', '1', '2', '32', '1516952856', '1516952856', 'fa-tag', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('22', '会员', '', '', '', '', '会员管理。', '2', '1', '0', '1516950991', '1517015810', 'fa fa-users', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('23', '管理员', '', '', '', '', '系统管理员管理。', '1', '1', '22', '1516951071', '1517015819', 'fa fa-user', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('24', '管理员', 'admin', 'admin', 'index', '', '系统管理员列表。', '1', '1', '23', '1516951163', '1516951163', 'fa fa-user', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('25', '新增/修改管理员', 'admin', 'admin', 'publish', '', '新增/修改系统管理员。', '1', '1', '24', '1516951224', '1516951224', '', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('26', '删除管理员', 'admin', 'admin', 'delete', '', '删除管理员。', '1', '1', '24', '1516951253', '1516951253', '', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('27', '权限组', 'admin', 'admin', 'admincate', '', '权限分组。', '1', '1', '23', '1516951353', '1528184317', 'fa fa-dot-circle-o', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('28', '新增/修改权限组', 'admin', 'admin', 'admincatepublish', '', '新增/修改权限组。', '1', '1', '27', '1516951483', '1516951483', '', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('29', '删除权限组', 'admin', 'admin', 'admincatedelete', '', '删除权限组。', '1', '1', '27', '1516951515', '1516951515', '', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('30', '操作日志', 'admin', 'admin', 'log', '', '系统管理员操作日志。', '1', '1', '23', '1516951754', '1517018196', 'fa-pencil', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('31', '内容', '', '', '', '', '内容管理。', '2', '1', '0', '1516952262', '1517015835', 'fa fa-th-large', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('32', '文章', '', '', '', '', '文章相关管理。', '1', '1', '31', '1516952698', '1517015846', 'fa fa-bookmark', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('33', '分类', 'admin', 'articlecate', 'index', '', '文章分类管理。', '1', '1', '32', '1516952856', '1516952856', 'fa fa-tag', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('34', '新增/修改文章分类', 'admin', 'articlecate', 'publish', '', '新增/修改文章分类。', '2', '1', '33', '1516952896', '1516952896', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('35', '删除文章分类', 'admin', 'articlecate', 'delete', '', '删除文章分类。', '2', '1', '33', '1516952942', '1516952942', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('36', '文章', 'admin', 'article', 'index', '', '文章管理。', '1', '2', '32', '1516953011', '1516953028', 'fa-bookmark', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('36', '文章', 'admin', 'article', 'index', '', '文章管理。', '1', '1', '32', '1516953011', '1516953028', 'fa fa-bookmark', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('37', '新增/修改文章', 'admin', 'article', 'publish', '', '新增/修改文章。', '2', '1', '36', '1516953056', '1516953056', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('38', '审核/拒绝文章', 'admin', 'article', 'status', '', '审核/拒绝文章。', '2', '1', '36', '1516953113', '1516953113', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('39', '置顶/取消置顶文章', 'admin', 'article', 'is_top', '', '置顶/取消置顶文章。', '2', '1', '36', '1516953162', '1516953162', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('40', '删除文章', 'admin', 'article', 'delete', '', '删除文章。', '2', '1', '36', '1516953183', '1516953183', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('41', '附件', 'admin', 'attachment', 'index', '', '附件管理。', '1', '2', '31', '1516953306', '1516953306', 'fa-cube', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('41', '附件', 'admin', 'attachment', 'index', '', '附件管理。', '1', '1', '31', '1516953306', '1528183670', 'fa fa-cube', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('42', '附件审核', 'admin', 'attachment', 'audit', '', '附件审核。', '2', '1', '41', '1516953359', '1516953440', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('43', '附件上传', 'admin', 'attachment', 'upload', '', '附件上传。', '2', '1', '41', '1516953392', '1516953392', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('44', '附件下载', 'admin', 'attachment', 'download', '', '附件下载。', '2', '1', '41', '1516953430', '1516953430', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('45', '附件删除', 'admin', 'attachment', 'delete', '', '附件删除。', '2', '1', '41', '1516953477', '1516953477', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('46', '留言', 'admin', 'tomessages', 'index', '', '留言管理。', '1', '2', '31', '1516953526', '1516953526', 'fa-comments', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('46', '留言', 'admin', 'tomessages', 'index', '', '留言管理。', '1', '1', '31', '1516953526', '1516953526', 'fa fa-comments', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('47', '留言处理', 'admin', 'tomessages', 'mark', '', '留言处理。', '2', '1', '46', '1516953605', '1516953605', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('48', '留言删除', 'admin', 'tomessages', 'delete', '', '留言删除。', '2', '1', '46', '1516953648', '1516953648', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('49', '图片上传', 'admin', 'common', 'upload', '', '图片上传。', '2', '2', '0', '1516954491', '1516954491', '', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('49', '图片上传', 'admin', 'common', 'upload', '', '图片上传。', '2', '1', '0', '1516954491', '1516954491', '', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('50', '管理员登录', 'admin', 'common', 'login', '', '管理员登录。', '2', '1', '0', '1516954517', '1522291301', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('62', '用户首页', 'index', 'index', 'index', '', '', '2', '1', '60', '1522292335', '1522292335', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('54', '线上招聘', 'index', 'index', 'index', '', '线上招聘模块', '1', '1', '0', '1520821800', '1522292925', 'fa fa-group ', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('63', '资产管理', '', '', '', '', '管理资产模块', '1', '1', '0', '1527662841', '1527669614', 'fa fa-television', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('62', '用户首页', 'index', 'index', 'index', '', '', '1', '1', '60', '1522292335', '1522292335', '', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('54', '线上招聘', 'index', 'index', 'index', '', '线上招聘模块', '2', '1', '0', '1520821800', '1522292925', 'fa fa-group ', '0', '0');
 INSERT INTO `eagle_admin_menu` VALUES ('55', '应聘人员列表', 'index', 'index', 'applicantlist', '', '人员列表', '1', '1', '54', '1520818482', '1520818598', 'fa fa-bars', '0', '2');
 INSERT INTO `eagle_admin_menu` VALUES ('56', '意向人员列表', 'index', 'index', 'potentialmemberlist', null, null, '1', '1', '54', '1520818482', '1520818482', 'fa fa-users', '0', '3');
 INSERT INTO `eagle_admin_menu` VALUES ('57', '待入职人员列表', 'index', 'index', 'auditmemberlist', null, null, '1', '1', '54', '1520818482', '1520818482', 'fa fa-user-secret ', '0', '4');
 INSERT INTO `eagle_admin_menu` VALUES ('58', '预入职人员列表', 'index', 'index', 'prejoinstafflist', null, null, '1', '1', '54', '1520818482', '1520818482', 'fa fa-user-plus', '0', '5');
 INSERT INTO `eagle_admin_menu` VALUES ('59', '招聘岗位列表', 'index', 'index', 'stationlist', null, null, '1', '1', '54', '1520818482', '1520818482', 'fa fa-anchor', '0', '1');
 INSERT INTO `eagle_admin_menu` VALUES ('60', '用户登录', 'index', 'common', 'login', '', '用户登录。', '2', '1', '0', '1516954517', '1522292273', '', '0', '0');
-INSERT INTO `eagle_admin_menu` VALUES ('61', '个人信息修改', 'index', 'index', 'personal', '', '个人信息修改', '2', '2', '0', '1516954517', '1516954517', '', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('61', '个人信息修改', 'index', 'index', 'personal', '', '个人信息修改', '2', '1', '0', '1516954517', '1516954517', '', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('64', '资产仓库', 'Properties', 'warehouse', 'index', '', '', '1', '1', '63', '1527668972', '1527670522', 'fa fa-first-order', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('65', '用户资产', 'properties', 'userproperties', 'index', '', '', '1', '1', '63', '1528160971', '1528160971', 'fa fa-gg', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('66', '待出库资产', 'properties', 'warehouse', 'waitinglist', '', '', '1', '1', '63', '1528163681', '1528163681', ' fa fa-list-ol', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('67', '报废资产', 'properties', 'warehouse', 'scraplist', '', '报废资产列表', '1', '1', '63', '1528247875', '1528247875', 'fa fa-database', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('68', '资产历史', 'properties', 'userproperties', 'propertyhistory', '', '', '1', '1', '63', '1528267918', '1528267918', ' fa fa-retweet', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('69', '日志管理', 'Logconsole', 'Logconsole', '', '', '日志管理', '1', '1', '0', '1528272444', '1528272444', ' fa fa-file-text', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('70', '操作日志', 'Properties', 'Log', 'adminlog', '', '操作日志', '1', '1', '69', '1528272632', '1528337375', ' fa fa-paste', '0', '0');
+INSERT INTO `eagle_admin_menu` VALUES ('71', '资产日志', 'Properties', 'Log', 'plog', '', '资产日志', '1', '1', '69', '1528272725', '1528337978', 'fa fa-files-o', '0', '0');
 
 -- ----------------------------
 -- Table structure for eagle_article
@@ -665,7 +724,7 @@ CREATE TABLE `eagle_station` (
   `update_time` int(32) DEFAULT NULL,
   `create_time` int(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=270 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of eagle_station
@@ -707,6 +766,8 @@ INSERT INTO `eagle_station` VALUES ('35', 'SDFJKSDJ', 'SDKFJDSK', null, '16', nu
 INSERT INTO `eagle_station` VALUES ('36', 'GDFGF', 'DFGFDG', null, '16', null, '1', '1522401130', '1522401130');
 INSERT INTO `eagle_station` VALUES ('37', 'DSFDS', 'DFD', null, '16', null, '1', '1522401227', '1522401227');
 INSERT INTO `eagle_station` VALUES ('38', 'ETRE', 'ETRE', null, '16', null, '1', '1522401254', '1522401254');
+INSERT INTO `eagle_station` VALUES ('269', '数据分析专员', '女装MINETTE', '0', 'dingdan', '2018-06-01 15:40:53', '1', null, null);
+INSERT INTO `eagle_station` VALUES ('268', '成衣采购专员', '女装minette', '0', 'dingdan', '2018-06-01 09:29:50', '1', null, null);
 
 -- ----------------------------
 -- Table structure for eagle_urlconfig
@@ -745,7 +806,7 @@ CREATE TABLE `eagle_user_log` (
   KEY `id` (`id`) USING BTREE,
   KEY `admin_id` (`admin_id`) USING BTREE,
   KEY `create_time` (`create_time`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of eagle_user_log
@@ -782,6 +843,14 @@ INSERT INTO `eagle_user_log` VALUES ('29', '60', '16', '0.0.0.0', '', '152229238
 INSERT INTO `eagle_user_log` VALUES ('30', '60', '1', '0.0.0.0', '', '1522399802');
 INSERT INTO `eagle_user_log` VALUES ('31', '60', '16', '0.0.0.0', '', '1522400114');
 INSERT INTO `eagle_user_log` VALUES ('32', '60', '16', '0.0.0.0', '', '1522402990');
+INSERT INTO `eagle_user_log` VALUES ('33', '60', '16', '10.80.63.9', '', '1522808684');
+INSERT INTO `eagle_user_log` VALUES ('34', '60', '16', '0.0.0.0', '', '1527570877');
+INSERT INTO `eagle_user_log` VALUES ('35', '60', '1', '0.0.0.0', '', '1527571150');
+INSERT INTO `eagle_user_log` VALUES ('36', '60', '1', '0.0.0.0', '', '1527668774');
+INSERT INTO `eagle_user_log` VALUES ('37', '60', '17', '0.0.0.0', '', '1528075360');
+INSERT INTO `eagle_user_log` VALUES ('38', '60', '1', '0.0.0.0', '', '1528075413');
+INSERT INTO `eagle_user_log` VALUES ('39', '60', '16', '0.0.0.0', '', '1528183504');
+INSERT INTO `eagle_user_log` VALUES ('40', '60', '16', '0.0.0.0', '', '1528186359');
 
 -- ----------------------------
 -- Table structure for eagle_webconfig

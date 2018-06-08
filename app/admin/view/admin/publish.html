@@ -56,6 +56,13 @@
         </div>
       </div>
       
+      <div class="layui-form-item">
+        <label class="layui-form-label">归属地</label>
+        <div class="layui-input-inline">
+          <input name="location" lay-verify="required" placeholder="请输入归属地" autocomplete="off" class="layui-input" type="text" {notempty name="$info.admin.location"}value="{$info.admin.location}"{/notempty}>
+        </div>
+      </div>
+      
       {empty name="$info.admin"}
       <div class="layui-form-item">
         <label class="layui-form-label">密码</label>

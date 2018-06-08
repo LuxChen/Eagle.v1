@@ -1,0 +1,14 @@
+{include file='header'}
+     <form id="searchForm" method="post" >
+<div class="funcdiv">
+	    <button class="layui-btn funcbutton" name="exportdata"  value="2" type="submit">导出Excel</button>
+</div>
+<div class="pageTitleTop">当前位置：资产管理 &raquo; 用户资产</div>
+<div class="" style="margin:10px  0 10px 17px;">
+        <input name="k" type="text" class="searchTopinput"  id="k" size="40"  placeholder="请输入人员姓名、账号关键字"  value="{$keyword}"/>
+          <i class="layui-icon layui-icon-search" style="font-size:18px; color: #1E9FFF;" onclick="$('form').submit();"></i> 
+</div>
+       </form>
+{include file="userproperties/table_properties"}
+
+{include file='footer'}

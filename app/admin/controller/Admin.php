@@ -141,6 +141,7 @@ class Admin extends Permissions
     			//验证  唯一规则： 表名，字段名，排除主键值，主键名
 	            $validate = new \think\Validate([
 	                ['name', 'require|alphaDash', '用户名不能为空|用户名格式只能是字母、数组、——或_'],
+	                ['location', 'require', '请输入人员归属地'],
 	                ['password', 'require|confirm', '密码不能为空|两次密码不一致'],
 	                ['password_confirm', 'require', '重复密码不能为空'],
 	                ['admin_cate_id', 'require', '请选择管理员分组'],

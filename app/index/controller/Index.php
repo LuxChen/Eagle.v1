@@ -18,8 +18,7 @@ class Index extends Permissions {
 		$amodel = new Admin ();
 		$user = $amodel->admincate ()->where ( 'id', Session::get ( 'admin' ) )->find ();
 		$menu = Db::name ( 'admin_menu' )->where ( [ 
-				'is_display' => 1,
-				'module' => 'index' 
+				'is_display' => 1
 		] )->order ( 'orders asc' )->select ();
 		
 		// 删除不在当前角色权限里的菜单，实现隐藏
